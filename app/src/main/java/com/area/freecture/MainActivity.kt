@@ -1,5 +1,6 @@
 package com.area.freecture
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -15,6 +16,8 @@ import com.area.freecture.listeners.ListItemClickListener
 import com.area.freecture.listeners.ResponseListener
 import java.util.*
 import android.util.Log
+import android.widget.Button
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), ResponseListener, ListItemClickListener {
     private var loadMore = false
@@ -31,6 +34,12 @@ class MainActivity : AppCompatActivity(), ResponseListener, ListItemClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val searchButton = findViewById<FloatingActionButton>(R.id.search_button)
+
+        searchButton.setOnClickListener {
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
+        }
         initView()
         loadMoreData(1)
     }
