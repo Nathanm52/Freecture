@@ -1,8 +1,10 @@
 package com.area.freecture
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.area.freecture.api.ApiRequests
 import com.area.freecture.api.JsonParser
-import com.area.freecture.model.ImageModel
 import com.area.freecture.listeners.ListItemClickListener
 import com.area.freecture.listeners.ResponseListener
+import com.area.freecture.model.ImageModel
 import java.util.*
-import android.util.Log
 
 class MainActivity : AppCompatActivity(), ResponseListener, ListItemClickListener {
     private var loadMore = false

@@ -1,17 +1,17 @@
 package com.area.freecture
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-
+import com.area.freecture.listeners.ListItemClickListener
+import com.area.freecture.model.ImageModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.area.freecture.model.ImageModel
-import com.area.freecture.listeners.ListItemClickListener
 
 class PhotoListAdapter(
     private val context: Context,
@@ -32,10 +32,13 @@ class PhotoListAdapter(
             .into(holder.image)
 
         holder.lytParent.setOnClickListener {
-            listener.onListItemClick(
-                holder.adapterPosition,
-                "imageClick"
-            )
+            listener.onListItemClick(holder.adapterPosition, "imageClick")
+            println("ici la position : $position")
+            val intent = Intent(context, Picture::class.java)
+            val myList = ArrayList<ImageModel>(list)
+            intent.putExtra("mylist", myList)
+            intent.putExtra("postion", position)
+            context.startActivity(intent)
         }
     }
 
