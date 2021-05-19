@@ -21,4 +21,11 @@ interface ApiInterface {
         @Query("client_id") client_id: String
     ): Call<JsonObject>
 
+    @GET("/search/photos")
+    fun getPhotosByQuerry(
+        @Query("client_id") client_id: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Call<JsonObject>
+
 }

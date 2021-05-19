@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.SearchView
-import androidx.activity.viewModels
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
@@ -36,7 +35,6 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         initView()
-        loadMoreData(1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,10 +59,11 @@ class SearchActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
         return true
     }
 
-    private fun searchData(query: String?) {
-        val searchQuery = "%$query$%"
+    private fun searchData(query: String) {
         Log.d("TAG", "test")
-        ApiRequests(this@SearchActivity, this).getApiRequestMethodArray(5)
+        println(query)
+        initView()
+        ApiRequests(this@SearchActivity, this).getPhotosByQuerryMethod(1, query)
     }
 
     private fun initView() {

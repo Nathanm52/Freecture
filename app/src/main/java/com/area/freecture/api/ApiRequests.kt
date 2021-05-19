@@ -4,6 +4,7 @@ import android.content.Context
 
 import com.google.gson.JsonArray
 import com.area.freecture.listeners.ResponseListener
+import com.google.gson.JsonObject
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -61,6 +62,26 @@ class ApiRequests(private val context: Context, private val listener: ResponseLi
                 }
             }
             override fun onFailure(call: Call<JsonArray>, t: Throwable) {
+                t.printStackTrace()
+                listener.onError(t.message ?: "")
+            }
+        })
+    }
+
+    fun getPhotosByQuerryMethod(pageNb: Int, querry: String) {
+        val apiInterface = getCurrentData()!!.create(ApiInterface::class.java)
+
+        val call = apiInterface.getPhotosByQuerry(Constants.UNSPLASH_CLIENT_ID, querry, pageNb)
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, resp: Response<JsonObject>) {
+                if (resp.body() != null) {
+                    println("AZERTY ${resp.body()!!.get("results")}")
+                    listener.onSuccess(resp.body()!!.get("results").toString())
+                } else {
+                    listener.onError(resp.message())
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 t.printStackTrace()
                 listener.onError(t.message ?: "")
             }
